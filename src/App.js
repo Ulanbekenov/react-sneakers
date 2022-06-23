@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 import Favorites from './pages/Favorites';
+import AppContext from './context';
 
 
 
@@ -71,32 +72,33 @@ function App() {
   }
 
   return (
-    <div className="wrapper clear">
-      {cartOpened && (<Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove = {onRemoveCart}/>)}
-      
-      <Header onClickCart={() => setCartOpened(true)} />
-      
-      <Route path='/' exact>
-        <Home 
-          items={items}
-          cartItems={cartItems}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          onAddToCart={onAddToCart}
-          onAddFavorite={onAddFavorite}
-          onChangeSearchInput={onChangeSearchInput} 
-          isLoading={isLoading}
-        />
-      </Route>
+    <AppContext.Provider value={{items, cartItems, favorites}}>
+      <div className="wrapper clear">
+        {cartOpened && (<Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove = {onRemoveCart}/>)}
+        
+        <Header onClickCart={() => setCartOpened(true)} />
+        
+        <Route path='/' exact>
+          <Home 
+            items={items}
+            cartItems={cartItems}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            onAddToCart={onAddToCart}
+            onAddFavorite={onAddFavorite}
+            onChangeSearchInput={onChangeSearchInput} 
+            isLoading={isLoading}
+          />
+        </Route>
 
-      <Route path='/favorites' exact>
-        <Favorites 
-          favoriteItems={favorites}
-          onAddFavorite={onAddFavorite}
-        />
-      </Route>
-      
-    </div>
+        <Route path='/favorites' exact>
+          <Favorites 
+            favoriteItems={favorites}
+            onAddFavorite={onAddFavorite}
+          />
+        </Route>
+      </div>
+    </AppContext.Provider>
   );
 }
 
