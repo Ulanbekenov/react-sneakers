@@ -8,7 +8,6 @@ import Favorites from './pages/Favorites';
 import AppContext from './context';
 
 
-
 function App() {
 
   const [items, setItems] = React.useState([]);
@@ -58,6 +57,8 @@ function App() {
     try {
       if(favorites.find((favObj) => favObj.id === obj.id)){
         axios.delete(`https://62ad359e402135c7acbdd301.mockapi.io/Favorites/${obj.id}`)
+        setFavorites((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)))
+        
       } else {
           const {data} = await axios.post('https://62ad359e402135c7acbdd301.mockapi.io/Favorites', obj);
           setFavorites(prev => [...prev, data])
@@ -71,8 +72,12 @@ function App() {
     setSearchValue(event.target.value);
   }
 
+  const isItemAdded = (id) => {
+    return cartItems.some((obj) => Number(obj.id) === Number(id));
+  }
+
   return (
-    <AppContext.Provider value={{items, cartItems, favorites}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddFavorite, setCartOpened, setCartItems}}>
       <div className="wrapper clear">
         {cartOpened && (<Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove = {onRemoveCart}/>)}
         
