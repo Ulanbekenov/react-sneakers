@@ -44,7 +44,7 @@ function Card({id, title, imageUrl, price, onPlus, onFavorite, inFavorite = fals
                         <div className="d-flex flex-column">
                         <span>Цена:</span>
                         
-                        <b>{price} руб.</b>
+                        <b>{price} тг.</b>
                         </div>
                         {onPlus && <img className={styles.plus} 
                              onClick={onClickPlus} 
