@@ -54,7 +54,7 @@ function Drawer({ onClose, onRemove, items = [], opened}) {
 
                                     <div className="mr-20 flex">
                                         <p className="mb-5">{obj.title}</p>
-                                        <b>{obj.price} руб.</b>
+                                        <b>{obj.price} тг.</b>
                                     </div>
                                     <img onClick={() => onRemove(obj.id)} className="removeBtn" src="img/btn-remove.svg" alt="Remove" />
                                 </div>
@@ -67,12 +67,12 @@ function Drawer({ onClose, onRemove, items = [], opened}) {
                                 <li className="d-flex">
                                     <span>Итого:</span>
                                     <div></div>
-                                    <b>{totalPrice} руб.</b>
+                                    <b>{totalPrice} тг.</b>
                                 </li>
                                 <li className="d-flex">
                                     <span>Налог 5%</span>
                                     <div></div>
-                                    <b>{(totalPrice / 100 * 5).toFixed(0)} руб.</b>
+                                    <b>{(totalPrice / 100 * 5).toFixed(0)} тг.</b>
                                 </li>
                             </ul>
                             <button disabled={isLoading} onClick={onClickOrder} className="greenButton">
